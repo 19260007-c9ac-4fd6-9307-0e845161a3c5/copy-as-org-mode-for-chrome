@@ -28,10 +28,10 @@ export type MyMsg =
     MyMsg_CopyStringToClipboard
 export class msgManager {
     static sendToTab <T extends MyMsg> (tabId: number, msg: T) {
-        return browser.tabs.sendMessage(tabId , msg) as Promise<T | void>
+        return chrome.tabs.sendMessage(tabId , msg) as Promise<T | void>
     }
     static sendToBg <T extends MyMsg> (msg: T) {
-        return browser.runtime.sendMessage(msg)
+        return chrome.runtime.sendMessage(msg)
     }
 }
 

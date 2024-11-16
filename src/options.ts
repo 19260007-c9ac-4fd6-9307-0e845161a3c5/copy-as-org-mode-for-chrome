@@ -111,17 +111,17 @@ export function deepCopy<T>(x: T): T {
 }
 
 export function storageSetSync (d: Partial<CopyAsOrgModeOptions>): void {
-    browser.storage.sync.set(d)
+    chrome.storage.sync.set(d)
 }
 class StorageManager {
-    area: browser.storage.StorageArea
+    area: chrome.storage.StorageArea
     constructor() {
         // Firefox for Android (90) doesn't support `sync` area yet,
         // so write a fallback for it.
-        if (browser.storage.sync) {
-            this.area = browser.storage.sync
+        if (chrome.storage.sync) {
+            this.area = chrome.storage.sync
         } else {
-            this.area = browser.storage.local
+            this.area = chrome.storage.local
         }
     }
     getDefaultData(): CopyAsOrgModeOptions {
@@ -210,12 +210,12 @@ class StorageManager {
             }
             return final
         }).catch((err) => {
-            console.error('Error when getting settings from browser.storage:', err)
+            console.error('Error when getting settings from chrome.storage:', err)
             return this.getDefaultData()
         })
     }
     onDataChanged(cb: (changes: TypedChangeDict<CopyAsOrgModeOptions>) => void) {
-        browser.storage.onChanged.addListener((changes, areaName) => {
+        chrome.storage.onChanged.addListener((changes, areaName) => {
             if (areaName === 'sync' || areaName === 'local') {
                 cb(changes as TypedChangeDict<CopyAsOrgModeOptions>)
             }

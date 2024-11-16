@@ -26,8 +26,8 @@ chrome.contextMenus.create(
     documentUrlPatterns: ["<all_urls>"],  // "https://*" not works...
   },
   () => {
-    if (browser.runtime.lastError)
-      console.log(`Error: ${browser.runtime.lastError}`)
+    if (chrome.runtime.lastError)
+      console.log(`Error: ${chrome.runtime.lastError}`)
   }
 )
 

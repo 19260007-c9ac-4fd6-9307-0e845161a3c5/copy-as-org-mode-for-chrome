@@ -31,7 +31,7 @@ import { exceptionSafeDecodeURI } from "./html2org/utilities";
 import { inPageNotify } from "./inpage-notify";
 import { source_link_text_fmt_t, storageManager } from "./options";
 
-browser.runtime.onMessage.addListener((_msg: any) => {
+chrome.runtime.onMessage.addListener((_msg: any) => {
   const msg: MyMsg = _msg
   if (msg.type === 'showInPageNotification') {
     inPageNotify(msg.title, msg.message)

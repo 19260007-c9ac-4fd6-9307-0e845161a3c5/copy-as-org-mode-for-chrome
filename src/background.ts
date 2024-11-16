@@ -43,6 +43,7 @@ storageManager.getData().then((obj) => {
     console.log('[background] storage changed!', changes)
     objectAssignPerfectly(STORAGE, await storageManager.getData())
 })
+
 chrome.contextMenus.create(
   {
     id: "copy-current-page-url-as-org-mode",
@@ -110,7 +111,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   }
 })
 
-chrome.browserAction.onClicked.addListener((tab) => {
+chrome.action.onClicked.addListener((tab) => {
   console.log('[DEBUG] browserAction.onclicked', tab)
   chrome.scripting.executeScript(undefined, { file: "copy.js" })
 })

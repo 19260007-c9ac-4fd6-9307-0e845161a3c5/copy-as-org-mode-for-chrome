@@ -29,7 +29,7 @@ import { msgManager, MyMsg } from "./common";
 import { inPageNotify } from "./inpage-notify";
 
 
-browser.runtime.onMessage.addListener((_msg: any) => {
+chrome.runtime.onMessage.addListener((_msg: any) => {
   const msg: MyMsg = _msg
   if (msg.type === 'showInPageNotification') {
     inPageNotify(msg.title, msg.message)

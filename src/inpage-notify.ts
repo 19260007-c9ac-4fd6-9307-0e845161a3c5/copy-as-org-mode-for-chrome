@@ -35,7 +35,7 @@ export function inPageNotify(title: string, msg: string) {
     titleEl.innerText = title
     // icon
     const imgEl = document.createElement('img')
-    imgEl.src = browser.runtime.getURL('img/icon.png')
+    imgEl.src = chrome.runtime.getURL('img/icon.png')
     imgEl.width = 32
     imgEl.height = 32
     titleEl.prepend(imgEl)
