@@ -28,11 +28,36 @@ export type MyMsg =
     MyMsg_CopyStringToClipboard
 export class msgManager {
     static sendToTab <T extends MyMsg> (tabId: number, msg: T) {
-        return chrome.tabs.sendMessage(tabId , msg) as Promise<T | void>
+	return chrome.tabs.sendMessage(tabId , msg)
+	    .then(response => {
+		// Handle response if needed
+		return response;
+	    })
+	    .catch(error => {
+		console.error("Failed to send message:", error);
+	    });
     }
+    // static sendToTab <T extends MyMsg> (tabId: number, msg: T) {
+    //     return chrome.tabs.sendMessage(tabId , msg) as Promise<T | void>
+    // }
+
     static sendToBg <T extends MyMsg> (msg: T) {
+	// console.log("msg: ", chrome.runtime.sendMessage(msg))
         return chrome.runtime.sendMessage(msg)
     }
+
+    // static sendToBg <T extends MyMsg> (msg: T) {
+    // 	return chrome.runtime.sendMessage(msg)
+    // 	    .then(response => {
+    // 		// Handle response if needed
+    // 		console.log("common.ts sendMessage");
+    // 		console.log("response", response);
+    // 		return response;
+    // 	    })
+    // 	    .catch(error => {
+    // 		console.error("Failed to send message to background:", error);
+    // 	    });
+    // }
 }
 
 

@@ -94,9 +94,15 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   const tabId = tab.id
   if (tabId === undefined) { console.error('[To Developer] tab.id is undefined???'); return }
   if ( info.menuItemId === "copy-selection-as-org-mode" || info.menuItemId === "copy-current-page-url-as-org-mode" ) {
-    chrome.scripting.executeScript(tabId, { file: "copy.js" })
+      chrome.scripting.executeScript({
+	  target: { tabId: tabId }, 
+	  files: ["copy.js"]
+      });
   } else if (info.menuItemId === "copy-link-as-org-mode") {
-    chrome.sripting.executeScript(tabId, { file: "copy-link.js" }).then(() => {
+      chrome.sripting.executeScript({
+	  target: { tabId: tabId },
+	  files: ["copy-link.js"]
+      }).then(() => {
       if (!info.linkText) { throw new TypeError('[To Developer] info.linkText is undefined') }
       if (!info.linkUrl) { throw new TypeError('[To Developer] info.linkUrl is undefined') }
       const linkText = info.linkText.replace(/([\\`*_[\]<>])/g, "\\$1")
@@ -118,6 +124,7 @@ chrome.action.onClicked.addListener((tab) => {
 
 
 chrome.runtime.onMessage.addListener((_msg: any) => {
+    console.log("runtime.listener");
   const msg = _msg as MyMsg
   switch (msg.type) {
     case 'showBgNotification': {
@@ -188,8 +195,15 @@ function bgCopyToClipboard(text: string, html?: string): boolean {
   }
 
   console.warn('[bgCopyToClipboard()] run navigator.clipboard.writeText()...')
-  navigator.clipboard.writeText(text)
-  showBgNotification('Org-Mode Text Copied Successfully!', text)
+  // navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(text)
+	.then(() => {
+	    console.log('文本已成功复制到剪贴板');
+	})
+	.catch(err => {
+	    console.error('复制文本失败:', err);
+	});
+    showBgNotification('Org-Mode Text Copied Successfully!', text)
   return true
 }
 

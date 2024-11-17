@@ -43,6 +43,7 @@ async function main() {
   try {
     console.log('main() in copy.ts')
     let options = await storageManager.getData()
+    console.log("options", options)
     let title = document.title;
     if (options.titleBlackList !== "") {
       title = replaceTitleBlackList(title, options.titleBlackList);
@@ -55,7 +56,7 @@ async function main() {
     let htmlLink = `<a href="${url}">${title}</a>`;
     let text = ''
     const result = await getSelectionAndConvertToOrgMode(options)
-    // console.log('selection result', result)
+    console.log('selection result', result)
     // If no selection found, copy the link of current page
     if (result.output === "") {
       const orgLink = getFormattedLink(title, url, '[[%url%][%title%]]')
@@ -83,6 +84,8 @@ async function main() {
         org: text,
         html: htmlLink
       })
+	console.log("msgManager.sendToBg");
+
       return
     }
 
