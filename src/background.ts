@@ -122,10 +122,23 @@ chrome.action.onClicked.addListener((tab) => {
   chrome.scripting.executeScript(undefined, { file: "copy.js" })
 })
 
+chrome.commands.onCommand.addListener((command, tab) => {
+	if (command === 'copy-selection-as-org-mode') {
+	    chrome.scripting.executeScript({
+		target: { tabId: tab.id},
+		files: ["copy.js"]
+      });
+	}
+});
 
-chrome.runtime.onMessage.addListener((_msg: any) => {
+
+
+chrome.runtime.onMessage.addListener((_msg: any, sender, sendResponse) => {
     console.log("runtime.listener");
-  const msg = _msg as MyMsg
+    const msg = _msg as MyMsg
+    // sendResponse({farewell: "klfjlsakjflk"});
+    sendResponse({farewell: msg.org});
+    navigator.clipboard.writeText(msg.org);
   switch (msg.type) {
     case 'showBgNotification': {
       showBgNotification(msg.title, msg.message)

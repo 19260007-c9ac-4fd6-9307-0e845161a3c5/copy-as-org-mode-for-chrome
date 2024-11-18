@@ -27,6 +27,15 @@
       "128": "/icons/128x.png"
     }
   },
+  "commands": {
+    "copy-selection-as-org-mode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Copy as Org mode"
+    }
+  },
   "icons": {
     "16": "/icons/16x.png",
     "32": "/icons/32x.png",
