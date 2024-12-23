@@ -1,4 +1,0 @@
-* url
-webpack5 之后不会包裹 node 内置的库
-所以需要自己安装或者
-npm install url --save-dev

@@ -79,17 +79,18 @@ async function main() {
         text = result.output;
         htmlLink = result.html;
       }
-     chrome.runtime.sendMessage({
-        type: 'copyStringToClipboard',
-        org: text,
-        html: htmlLink
-     }, function(response) {
-	 console.log("!!!", response.farewell);
-	 navigator.clipboard.writeText(response.farewell);
-	
-     })
+     navigator.clipboard.writeText(text);
+     // chrome.runtime.sendMessage({
+     //    type: 'copyStringToClipboard',
+     //    org: text,
+     //    html: htmlLink
+     // }, function(response) {
+     // 	 console.log("!!!", response.farewell);
+     // 	 navigator.clipboard.writeText(response.farewell);
 
-	console.log("msgManager.sendToBg");
+     // })
+
+     // 	console.log("msgManager.sendToBg");
 
       return
     }
