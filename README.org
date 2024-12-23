@@ -6,6 +6,8 @@
 然后修改一些函数啥的,适配 chrome
 本来想直接修改 copy-as-org-mode 但是构建时报很多错,依赖问题等等
 
+npm install
+npm run build
 
 * url
 webpack5 之后不会包裹 node 内置的库
